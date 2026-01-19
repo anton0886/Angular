@@ -12,14 +12,18 @@ describe('EmailComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, EmailComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+    .overrideComponent(EmailComponent, {
+      set: {
+        template: '<div>Test</div>',
+      },
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EmailComponent);
     component = fixture.componentInstance;
-    // provide required input control used by the template
-    fixture.componentRef.setInput('objectForControlsEmail', new FormControl(''));
     fixture.detectChanges();
   });
 

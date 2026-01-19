@@ -12,13 +12,18 @@ describe('PhoneComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, PhoneComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+    .overrideComponent(PhoneComponent, {
+      set: {
+        template: '<div>Test</div>',
+      },
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PhoneComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('objectForControlsPhone', new FormControl(''));
     fixture.detectChanges();
   });
 

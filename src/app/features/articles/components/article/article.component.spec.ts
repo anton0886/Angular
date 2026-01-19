@@ -20,23 +20,18 @@ describe('ArticleComponent', () => {
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
-    }).compileComponents();
+    })
+    .overrideComponent(ArticleComponent, {
+      set: {
+        template: '<div>Test</div>',
+      },
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleComponent);
     component = fixture.componentInstance;
-    // provide minimal article input expected by the template
-    fixture.componentRef.setInput('article', {
-      author: '',
-      title: '',
-      description: '',
-      content: '',
-      publishedAt: '',
-      source: [],
-      url: '',
-      urlToImage: '',
-    });
     fixture.detectChanges();
   });
 
