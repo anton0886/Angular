@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-dist:
+    name: Ensure no committed dist/
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if dist is tracked
+        run: |
+          if git ls-files --error-unmatch dist >/dev/null 2>&1; then
+            echo "Error: tracked files under dist/ found in repository. Remove them and commit the change." >&2
+            git ls-files dist || true
+            exit 1
+          else
+            echo "No tracked dist/ files — OK."
+          fi
+
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    needs: check-dist
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Format check
+        run: npm run format:check || true
+      - name: Lint
+        run: npm run lint --if-present
+      - name: Run unit tests
+        run: npm test --if-present
+      - name: Build
+        run: npm run build --if-present

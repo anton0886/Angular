@@ -1,0 +1,68 @@
+# compiled output
+/dist
+/out-tsc
+
+# dependencies
+/node_modules
+
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
+
+# IDEs and editors
+/.idea
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Angular & tooling caches
+/.angular
+/.angular/cache
+.eslintcache
+.cache
+
+# TypeScript incremental build info
+*.tsbuildinfo
+.tsbuildinfo
+
+# Vite / bundler caches
+.vite
+.cache/vite
+.parcel-cache
+.rollup.cache
+
+# Misc caches
+.sass-cache
+.turbo
+
+# Playwright test artifacts
+/playwright-report
+/playwright/.local-browsers
+
+# Test coverage and nyc
+/.nyc_output
+
+# Local env files (do NOT add production secrets to repo)
+.env
+.env.local
+.env.*.local
+.env.*
+!.env.example

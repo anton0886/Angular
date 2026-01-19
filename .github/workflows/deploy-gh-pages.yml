@@ -1,0 +1,69 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create .env from secrets
+        run: |
+          MISSING=0
+          if [ -z "${{ secrets.NEWS_API_KEY }}" ]; then
+            echo "NEWS_API_KEY is not set in repository secrets"
+            MISSING=1
+          fi
+          if [ -z "${{ secrets.OMDB_API_KEY }}" ]; then
+            echo "OMDB_API_KEY is not set in repository secrets"
+            MISSING=1
+          fi
+          if [ -z "${{ secrets.COUNTRY_API_KEY }}" ]; then
+            echo "COUNTRY_API_KEY is not set in repository secrets"
+            MISSING=1
+          fi
+          if [ "$MISSING" -eq 1 ]; then
+            exit 1
+          fi
+          echo "NEWS_API_KEY=${{ secrets.NEWS_API_KEY }}" > .env
+          echo "OMDB_API_KEY=${{ secrets.OMDB_API_KEY }}" >> .env
+          echo "COUNTRY_API_KEY=${{ secrets.COUNTRY_API_KEY }}" >> .env
+
+      - name: Generate environment files
+        run: node ./scripts/generate-environment.js
+
+      - name: Compute base-href from repository
+        run: |
+          # GITHUB_REPOSITORY is owner/repo
+          REPO_NAME=${GITHUB_REPOSITORY#*/}
+          echo "BASE_HREF=/${REPO_NAME}/" >> $GITHUB_ENV
+
+      - name: Build (production)
+        run: npm run build -- --configuration=production --base-href "$BASE_HREF"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/blog
+          keep_files: false

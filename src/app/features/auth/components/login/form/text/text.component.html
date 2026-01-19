@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <span class="field__name">{{ placeHolder() }}</span>
+  <input
+    type="text"
+    class="field__input"
+    (input)="eventStarted($event)"
+    [class.invalid]="
+      _objectForControlsText.invalid &&
+      (_objectForControlsText.touched || _objectForControlsText.dirty)
+    "
+    [class.valid]="_objectForControlsText.valid"
+    [class.untouched]="_objectForControlsText.pristine"
+    value="{{ value }}"
+  />
+  @if (
+    _objectForControlsText.invalid &&
+    (_objectForControlsText.touched || _objectForControlsText.dirty)
+  ) {
+    <div class="field__error">
+      @if (_objectForControlsText.errors?.required) {
+        <span class="field__error-message">This field is required</span>
+      }
+    </div>
+  }
+</div>

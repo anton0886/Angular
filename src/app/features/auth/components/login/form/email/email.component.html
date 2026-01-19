@@ -1,0 +1,28 @@
+<div class="wrapper">
+  <span class="field__name">Email</span>
+  <input
+    type="email"
+    class="field__input"
+    (input)="eventStarted($event)"
+    [class.invalid]="
+      _objectForControlsEmail.invalid &&
+      (_objectForControlsEmail.touched || _objectForControlsEmail.dirty)
+    "
+    [class.valid]="_objectForControlsEmail.valid"
+    [class.untouched]="_objectForControlsEmail.pristine"
+    value="{{ value }}"
+  />
+  @if (
+    _objectForControlsEmail.invalid &&
+    (_objectForControlsEmail.touched || _objectForControlsEmail.dirty)
+  ) {
+    <div class="field__error">
+      @if (_objectForControlsEmail.errors?.required) {
+        <span class="field__error-message">This field is required</span>
+      }
+      @if (_objectForControlsEmail.errors?.email) {
+        <span class="field__error-message">Enter the right email address</span>
+      }
+    </div>
+  }
+</div>

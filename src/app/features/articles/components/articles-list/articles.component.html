@@ -1,0 +1,12 @@
+<article class="wrapper">
+  @if (postData()) {
+    <ul class="articles">
+      @for (post of postData(); track post.url) {
+        <app-article [article]="post"></app-article>
+      }
+    </ul>
+  }
+  @if (!postData()) {
+    <app-loader></app-loader>
+  }
+</article>

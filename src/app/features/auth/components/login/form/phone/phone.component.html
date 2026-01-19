@@ -1,0 +1,28 @@
+<div class="wrapper">
+  <span class="field__name">Phone</span>
+  <input
+    type="tel"
+    class="field__input"
+    (input)="eventStarted($event)"
+    [class.invalid]="
+      _objectForControlsPhone.invalid &&
+      (_objectForControlsPhone.touched || _objectForControlsPhone.dirty)
+    "
+    [class.valid]="_objectForControlsPhone.valid"
+    [class.untouched]="_objectForControlsPhone.pristine"
+    value="{{ value }}"
+  />
+  @if (
+    _objectForControlsPhone.invalid &&
+    (_objectForControlsPhone.touched || _objectForControlsPhone.dirty)
+  ) {
+    <div class="field__error">
+      @if (_objectForControlsPhone.errors?.required) {
+        <span class="field__error-message">This field is required</span>
+      }
+      @if (_objectForControlsPhone.errors?.pattern) {
+        <span class="field__error-message">Format +380931111111</span>
+      }
+    </div>
+  }
+</div>
