@@ -10,7 +10,6 @@ import { environment } from '../../../../../environments/environment';
 })
 export class CountriesService {
   private readonly http = inject(HttpClient);
-
   private readonly rootUrl = 'https://api.countrylayer.com/v2';
 
   getAllCountries(): Observable<Array<ICountries>> {
