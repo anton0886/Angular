@@ -21,12 +21,12 @@ describe('ArticleComponent', () => {
         provideHttpClientTesting(),
       ],
     })
-    .overrideComponent(ArticleComponent, {
-      set: {
-        template: '<div>Test</div>',
-      },
-    })
-    .compileComponents();
+      .overrideComponent(ArticleComponent, {
+        set: {
+          template: '<div>Test</div>',
+        },
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {

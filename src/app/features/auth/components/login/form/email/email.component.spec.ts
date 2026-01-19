@@ -13,12 +13,12 @@ describe('EmailComponent', () => {
       imports: [ReactiveFormsModule, EmailComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .overrideComponent(EmailComponent, {
-      set: {
-        template: '<div>Test</div>',
-      },
-    })
-    .compileComponents();
+      .overrideComponent(EmailComponent, {
+        set: {
+          template: '<div>Test</div>',
+        },
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {

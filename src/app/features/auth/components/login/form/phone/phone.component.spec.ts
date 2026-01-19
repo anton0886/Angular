@@ -13,12 +13,12 @@ describe('PhoneComponent', () => {
       imports: [ReactiveFormsModule, PhoneComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .overrideComponent(PhoneComponent, {
-      set: {
-        template: '<div>Test</div>',
-      },
-    })
-    .compileComponents();
+      .overrideComponent(PhoneComponent, {
+        set: {
+          template: '<div>Test</div>',
+        },
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {
